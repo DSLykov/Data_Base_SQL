@@ -138,4 +138,12 @@ WHERE name NOT LIKE '% %';
 -- Название треков, которые содержат слово «мой» или «my»
 SELECT title
 FROM Track
-WHERE LOWER(title) LIKE '%мой%' OR LOWER(title) LIKE '%my%';
+WHERE 
+    LOWER(title) ILIKE 'my %'   -- Слово в начале строки
+    OR LOWER(title) ILIKE '% my' -- Слово в конце строки
+    OR LOWER(title) ILIKE '% my %' -- Слово в середине строки
+    OR LOWER(title) = 'my' -- Название трека состоит из одного слова
+    OR LOWER(title) ILIKE 'мой %'   -- Слово в начале строки
+    OR LOWER(title) ILIKE '% мой' -- Слово в конце строки
+    OR LOWER(title) ILIKE '% мой %' -- Слово в середине строки
+    OR LOWER(title) = 'мой'; -- Название трека состоит из одного слова
